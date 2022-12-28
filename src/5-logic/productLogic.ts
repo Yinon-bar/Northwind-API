@@ -1,3 +1,4 @@
+import { OkPacket } from "mysql";
 import dal from "../2-utils/dal";
 import ProductModel from "../4-models/productModel";
 
@@ -14,6 +15,8 @@ async function getAllProducts() {
   const products = await dal.execute(SQL);
   return products;
 }
+
+// GET one
 async function getOneProduct(id: number) {
   const SQL = `
   SELECT 
@@ -34,29 +37,28 @@ async function getOneProduct(id: number) {
 }
 
 // POST
-// async function addNewProduct(product: ProductModel): Promise<ProductModel> {
-//   const err = product.validation();
-//   if (err) {
-//     console.log(err);
-//     return;
-//   }
+async function addNewProduct(product: ProductModel): Promise<ProductModel> {
+  // Validation
+  const err = product.validation();
+  if (err) {
+    console.log(err);
+    return;
+  }
 
-//   const SQL = `
-//   INSERT INTO
-//   products(productName, unitprice, unitsInStock)
-//   VALUES ('${product.name}','${product.price}','${product.stock}',)
-//   `;
+  const SQL = `
+  INSERT INTO
+  products(productName, unitprice, unitsInStock)
+  VALUES ('${product.name}','${product.price}','${product.stock}',)
+  `;
 
-//   const products = await dal.execute(SQL);
-//   const product = products[0];
+  const info: OkPacket = await dal.execute(SQL);
 
-//   if (!product) throw console.error("error");
-
-//   return product;
-// }
+  product.id = info.insertId;
+  return product;
+}
 
 export default {
   getAllProducts,
   getOneProduct,
-  // addNewProduct,
+  addNewProduct,
 };
