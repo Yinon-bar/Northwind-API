@@ -34,29 +34,29 @@ async function getOneProduct(id: number) {
 }
 
 // POST
-async function addNewProduct(product: ProductModel): Promise<ProductModel> {
-  const err = product.validation();
-  if (err) {
-    console.log(err);
-    return;
-  }
+// async function addNewProduct(product: ProductModel): Promise<ProductModel> {
+//   const err = product.validation();
+//   if (err) {
+//     console.log(err);
+//     return;
+//   }
 
-  const SQL = `
-  INSERT INTO 
-  products(productName, unitprice, unitsInStock)
-  VALUES ('${product.name}','${product.price}','${product.stock}',) 
-  `;
+//   const SQL = `
+//   INSERT INTO
+//   products(productName, unitprice, unitsInStock)
+//   VALUES ('${product.name}','${product.price}','${product.stock}',)
+//   `;
 
-  const products = await dal.execute(SQL);
-  const product = products[0];
+//   const products = await dal.execute(SQL);
+//   const product = products[0];
 
-  if (!product) throw console.error("error");
+//   if (!product) throw console.error("error");
 
-  return product;
-}
+//   return product;
+// }
 
 export default {
   getAllProducts,
   getOneProduct,
-  addNewProduct,
+  // addNewProduct,
 };
