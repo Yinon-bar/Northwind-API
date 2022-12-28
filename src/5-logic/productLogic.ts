@@ -47,8 +47,8 @@ async function addNewProduct(product: ProductModel): Promise<ProductModel> {
 
   const SQL = `
   INSERT INTO
-  products(productName, unitprice, unitsInStock)
-  VALUES ('${product.name}','${product.price}','${product.stock}',)
+  products (productName, unitprice, unitsInStock)
+  VALUES ('${product.name}','${product.price}','${product.stock}');
   `;
 
   const info: OkPacket = await dal.execute(SQL);
